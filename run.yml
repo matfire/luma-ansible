@@ -6,3 +6,7 @@
   vars_files:
     - secret.yml
 
+  tasks:
+    - name: Install NGINX
+      ansible.builtin.include_role:
+        name: nginx
