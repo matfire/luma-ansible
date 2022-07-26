@@ -56,7 +56,7 @@ export DEBIAN_FRONTEND=
 
 check_root
 # Clone the Ansible playbook
-[ -d "$HOME/luma-ansible" ] || git clone https://github.com/notthebee/ansible-easy-vpn $HOME/luma-ansible
+[ -d "$HOME/luma-ansible" ] || git clone https://github.com/matfire/luma-ansible.git $HOME/luma-ansible
 
 cd $HOME/luma-ansible && ansible-galaxy install -r requirements.yml
 
