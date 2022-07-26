@@ -1,0 +1,13 @@
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+
+  vars:
+    user_shell: /bin/bash
+    username: "luma"
+    userpassword: "lumapassword"
+    enable_passwordless_sudo: yes
+    enable_username_creation: yes
+    root_host: "https://example.com"
+    luma_git: "http://luma.git"
