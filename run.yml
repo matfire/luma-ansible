@@ -109,10 +109,10 @@
         src: templates/luma.website.j2
         dest: /etc/nginx/sites-available/{{root_host}}.conf
     - name: enable webapp with nginx
-        file:
-          src: /etc/nginx/sites-available/{{root_host}}.conf
-          dest: /etc/nginx/sites-enabled/{{root_host}}.conf
-          state: link
+      file:
+        src: /etc/nginx/sites-available/{{root_host}}.conf
+        dest: /etc/nginx/sites-enabled/{{root_host}}.conf
+        state: link
     - name: start nginx
       service:
           name: nginx
