@@ -113,7 +113,7 @@ until [[ "$root_host" =~ ^[a-z0-9\.\-]*$ ]]; do
   read -p "Domain name: " root_host
 done
 
-sed -i "s/root_host: .*/root_host: ${root_host}/g" $HOME/luma-ansible/inventory.yml
+echo -e "    root_host: ${luma_project}" >> $HOME/luma-ansible/inventory.yml
 
 
 touch $HOME/luma-ansible/secret.yml
