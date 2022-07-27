@@ -9,6 +9,11 @@
   tasks:
     - name: install nginx
       apt: name=nginx state=present
+    - name: install python3 and virtualenv
+      apt: name={{item}} state=present
+      with_items:
+        - python3
+        - python3-virtualenv
     - name: install postgres
       apt: "name={{ item }} state=present"
       with_items:
@@ -18,19 +23,11 @@
       pip: "name={{ item }}  state=present"
       with_items:
         - psycopg2-binary 
-    - name: "Start and enable services"
-      service: "name={{ item }} state=started enabled=yes"
-      with_items:
-        - postgresql
-    - name: install python3 and virtualenv
-      apt: name={{item}} state=present
-      with_items:
-        - python3
-        - python3-virtualenv
     - name: start postgresql
-      service:
+      service: 
           name: postgresql
           state: started
+          enabled: yes
     - name: create postgres db
       postgresql_db:
         state: present
@@ -55,7 +52,7 @@
       become_user: postgres
     - name: "Allow md5 connection for the db user"
       postgresql_pg_hba:
-        dest: "~/data/pg_hba.conf"
+        dest: "/etc/postgresql/12/main/pg_hba.conf"
         contype: host
         databases: all
         method: md5
