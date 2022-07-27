@@ -64,7 +64,7 @@
     - name: "Allow peer connection for the db user"
       postgresql_pg_hba:
         dest: "/etc/postgresql/12/main/pg_hba.conf"
-        contype: host
+        contype: local
         databases: all
         method: peer
         users: "{{luma_project}}"
