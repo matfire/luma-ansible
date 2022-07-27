@@ -60,8 +60,6 @@ check_root
 
 cd $HOME/luma-ansible && ansible-galaxy install -r requirements.yml
 
-# Check if we're running on an AWS EC2 instance
-
 clear
 echo "Welcome to luma!"
 echo
@@ -94,16 +92,14 @@ done
 echo
 echo "Enter the GIT URL you wish to clone"
 read -p "Git URL: " luma_url
+#sed -i "s/luma_git: .*/luma_git: ${luma_url}/g" $HOME/luma-ansible/inventory.yml
 
-
-sed -i "s/luma_git: .*/luma_git: ${luma_url}/g" $HOME/luma-ansible/inventory.yml
-
+echo -e "    luma_git: ${luma_url}" >> $HOME/luma-ansible/inventory.yml
+#sed -i "s/luma_git: .*/luma_git: ${luma_url}/g" $HOME/luma-ansible/inventory.yml
 
 echo
 echo
 echo "Enter your domain name"
-echo "The domain name should already resolve to the IP address of your server"
-echo "Make sure that 'wg' and 'auth' subdomains also point to that IP (not necessary with DuckDNS)"
 echo
 read -p "Domain name: " root_host
 until [[ "$root_host" =~ ^[a-z0-9\.\-]*$ ]]; do
@@ -111,7 +107,7 @@ until [[ "$root_host" =~ ^[a-z0-9\.\-]*$ ]]; do
   read -p "Domain name: " root_host
 done
 
-sed -i "s/root_host: .*/root_host: ${root_host}/g" $HOME/luma/inventory.yml
+sed -i "s/root_host: .*/root_host: ${root_host}/g" $HOME/luma-ansible/inventory.yml
 
 
 touch $HOME/luma-ansible/secret.yml
@@ -137,9 +133,9 @@ if [[ "$launch_playbook" =~ ^[yY]$ ]]; then
   if [[ $EUID -ne 0 ]]; then
     echo
     echo "Please enter your current sudo password now"
-    cd $HOME/luma && ansible-playbook -K run.yml
+    cd $HOME/luma-ansible && ansible-playbook -K run.yml
   else
-    cd $HOME/luma && ansible-playbook run.yml
+    cd $HOME/luma-ansible && ansible-playbook run.yml
   fi
 else
   echo "You can run the playbook by executing the following command"
