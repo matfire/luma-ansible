@@ -61,6 +61,17 @@
       become: yes
       become_user: postgres
       notify: restart postgres
+    - name: "Allow peer connection for the db user"
+      postgresql_pg_hba:
+        dest: "/etc/postgresql/12/main/pg_hba.conf"
+        contype: host
+        databases: all
+        method: peer
+        users: "{{luma_project}}"
+        create: true
+      become: yes
+      become_user: postgres
+      notify: restart postgres
     - name: clone project
       git:
         clone: yes
