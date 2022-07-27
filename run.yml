@@ -53,6 +53,17 @@
         privs: all
       become: yes
       become_user: postgres
+    - name: "Allow md5 connection for the db user"
+      postgresql_pg_hba:
+        dest: "~/data/pg_hba.conf"
+        contype: host
+        databases: all
+        method: md5
+        users: "{{luma_project}}"
+        create: true
+      become: yes
+      become_user: postgres
+      notify: restart postgres
     - name: start nginx
       service:
           name: nginx
