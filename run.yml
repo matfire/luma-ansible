@@ -117,6 +117,14 @@
         path: "~/luma_{{luma_project}}/luma/settings.py"
         regexp: "'PASSWORD': '.*'"
         replace: "'PASSWORD': '{{user_password}}'"
+    - name: run makemigrations
+      command:
+        chdir: "~/luma_{{luma_project}}"
+        cmd: "/envs/{{luma_project}}/bin/python3 manage.py makemigrations"
+    - name: run migrate
+      command:
+        chdir: "~/luma_{{luma_project}}"
+        cmd: "/envs/{{luma_project}}/bin/python3 manage.py makemigrations"
     - name: create luma project socket file
       template:
         src: templates/luma.socket.j2
