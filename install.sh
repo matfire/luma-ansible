@@ -92,10 +92,16 @@ done
 echo
 echo "Enter the GIT URL you wish to clone"
 read -p "Git URL: " luma_url
-#sed -i "s/luma_git: .*/luma_git: ${luma_url}/g" $HOME/luma-ansible/inventory.yml
 
 echo -e "    luma_git: ${luma_url}" >> $HOME/luma-ansible/inventory.yml
-#sed -i "s/luma_git: .*/luma_git: ${luma_url}/g" $HOME/luma-ansible/inventory.yml
+
+echo
+echo "Enter the name of the project"
+read -p "Project Name: " luma_project
+
+echo -e "    luma_project: ${luma_project}" >> $HOME/luma-ansible/inventory.yml
+
+
 
 echo
 echo

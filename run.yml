@@ -7,6 +7,36 @@
     - secret.yml
 
   tasks:
-    - name: Install NGINX
-      ansible.builtin.include_role:
-        name: nginx
+    - name: install nginx
+      apt: name=nginx state=present
+    - name: install postgres
+      apt: "name={{ item }} state=present"
+      with_items:
+        - postgresql
+        - postgresql-contrib
+    - name: install python3 and virtualenv
+      apt: name={{item}} state=present
+      with_items:
+        - python3
+        - python3-virtualenv
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+    - name: start postgresql
+      service:
+          name: postgresql
+          state: started
+    - name: create postgres db
+      postgresql_db:
+        state: present
+        name: "luma_{{luma_project}}"
+      become: yes
+      become_user: postgres
+    - name: create postgres user
+      postgresql_user:
+        state: present
+        name: "{{luma_project}}"
+        password: "{{user_password}}"
+      become: yes
+      become_user: postgres

@@ -8,4 +8,4 @@ all:
     username: "luma"
     enable_passwordless_sudo: yes
     enable_username_creation: yes
-    root_host: "https://example.com
+
