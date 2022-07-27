@@ -91,6 +91,21 @@
         path: "~/luma_{{luma_project}}/luma/settings.py"
         regexp: 'ALLOWED_HOSTS = \[.*\]'
         replace: "ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '{{root_host}}']"
+    - name: update database name in settings.py
+      replace:
+        path: "~/luma_{{luma_project}}/luma/settings.py"
+        regexp: "'NAME': '.*'"
+        replace: "'NAME': 'luma_{{luma_project}}'"
+    - name: update database password in settings.py
+      replace:
+        path: "~/luma_{{luma_project}}/luma/settings.py"
+        regexp: "'USER': '.*'"
+        replace: "'USER': '{{luma_project}}'"
+    - name: update database password in settings.py
+      replace:
+        path: "~/luma_{{luma_project}}/luma/settings.py"
+        regexp: "'PASSWORD': '.*'"
+        replace: "'PASSWORD': '{{user_password}}'"
     - name: create luma project socket file
       template:
         src: templates/luma.socket.j2
