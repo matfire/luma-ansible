@@ -90,16 +90,16 @@
       template:
         src: templates/luma.socket.j2
         dest: /etc/systemd/system/luma_{{luma_project}}.socket
+    - name: create luma project service file
+      template:
+        src: templates/luma.service.j2
+        dest: /etc/systemd/system/luma_{{luma_project}}.service
     - name: enable and start luma socket
       service:
         name: luma_{{luma_project}}.socket
         state: started
         enabled: yes
         daemon_reload: yes
-    - name: create luma project service file
-      template:
-        src: templates/luma.service.j2
-        dest: /etc/systemd/system/luma_{{luma_project}}.service
     - name: enable and start luma service
       service:
         name: luma_{{luma_project}}.service
