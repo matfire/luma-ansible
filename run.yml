@@ -76,7 +76,7 @@
         cmd: "virtualenv /envs/{{luma_project}}"
     - name: install dependencies for luma
       pip:
-        requirements: "~/luma_{{luma_project}}"
+        requirements: "~/luma_{{luma_project}}/requirements.txt"
         virtualenv: "/envs/{{luma_project}}"
         virtualenv_python: python3
     - name: start nginx
