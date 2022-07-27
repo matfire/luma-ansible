@@ -124,7 +124,7 @@
     - name: run migrate
       command:
         chdir: "~/luma_{{luma_project}}"
-        cmd: "/envs/{{luma_project}}/bin/python3 manage.py makemigrations"
+        cmd: "/envs/{{luma_project}}/bin/python3 manage.py migrate"
     - name: create luma project socket file
       template:
         src: templates/luma.socket.j2
