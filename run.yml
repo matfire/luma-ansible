@@ -12,7 +12,7 @@
     - name: install python3 and virtualenv
       apt: name={{item}} state=present
       with_items:
-        - python3
+        - python3.8
         - python3-virtualenv
     - name: install postgres
       apt: "name={{ item }} state=present"
@@ -66,6 +66,14 @@
         clone: yes
         repo: "{{luma_git}}"
         dest: "~/luma_{{luma_project}}"
+    - name: create virtualenvs directory
+      file:
+        path: /envs
+        state: directory
+    - name: create virtualenv for project
+      command:
+        creates: "/envs/{{luma_project}}"
+        cmd: "virtualenv /envs/{{luma_project}}"
     - name: start nginx
       service:
           name: nginx
