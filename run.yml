@@ -95,6 +95,7 @@
         name: luma_{{luma_project}}.socket
         state: started
         enabled: yes
+        daemon_reload: yes
     - name: create luma project service file
       template:
         src: templates/luma.service.j2
@@ -104,6 +105,7 @@
         name: luma_{{luma_project}}.service
         state: started
         enabled: yes
+        daemon_reload: yes
     - name: create nginx config
       template:
         src: templates/luma.website.j2
