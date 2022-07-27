@@ -61,6 +61,11 @@
       become: yes
       become_user: postgres
       notify: restart postgres
+    - name: clone project
+      git:
+        clone: yes
+        repo: "{{luma_git}}"
+        dest: "~/luma_{{luma_project}}"
     - name: start nginx
       service:
           name: nginx
