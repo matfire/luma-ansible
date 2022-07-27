@@ -79,6 +79,40 @@
         requirements: "~/luma_{{luma_project}}/requirements.txt"
         virtualenv: "/envs/{{luma_project}}"
         virtualenv_python: python3
+    - name: change permissions for media and public
+      file:
+        path: "~/luma_{{luma_project}}"
+        owner: "root"
+        group: "www-data"
+        mode: 644
+        recurse: yes
+    - name: create luma project socket file
+      template:
+        src: templates/luma.socket.j2
+        dest: /etc/systemd/system/luma_{{luma_project}}.socket
+    - name: enable and start luma socket
+      service:
+        name: luma_{{luma_project}}.socket
+        state: started
+        enabled: yes
+    - name: create luma project service file
+      template:
+        src: templates/luma.service.j2
+        dest: /etc/systemd/system/luma_{{luma_project}}.service
+    - name: enable and start luma service
+      service:
+        name: luma_{{luma_project}}.service
+        state: started
+        enabled: yes
+    - name: create nginx config
+      template:
+        src: templates/luma.website.j2
+        dest: /etc/nginx/sites-available/{{root_host}}.conf
+    - name: enable webapp with nginx
+        file:
+          src: /etc/nginx/sites-available/{{root_host}}.conf
+          dest: /etc/nginx/sites-enabled/{{root_host}}.conf
+          state: link
     - name: start nginx
       service:
           name: nginx

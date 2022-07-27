@@ -1,0 +1,17 @@
+[Unit]
+Description={{luma_project}} daemon
+Requires=luma_{{luma_project}}.socket
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/luma_{{luma_project}}
+ExecStart=/envs/{{luma_project}}/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/luma_{{luma_project}}.sock \
+          luma.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

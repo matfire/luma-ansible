@@ -1,0 +1,8 @@
+[Unit]
+Description={{luma_project}} socket
+
+[Socket]
+ListenStream=/run/luma_{{luma_project}}.sock
+
+[Install]
+WantedBy=sockets.target
