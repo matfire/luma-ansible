@@ -74,6 +74,11 @@
       command:
         creates: "/envs/{{luma_project}}"
         cmd: "virtualenv /envs/{{luma_project}}"
+    - name: install dependencies for luma
+      pip:
+        requirements: "~/luma_{{luma_project}}"
+        virtualenv: "/envs/{{luma_project}}"
+        virtualenv_python: python3
     - name: start nginx
       service:
           name: nginx
