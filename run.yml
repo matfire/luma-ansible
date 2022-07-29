@@ -154,10 +154,21 @@
         src: /etc/nginx/sites-available/{{root_host}}.conf
         dest: /etc/nginx/sites-enabled/{{root_host}}.conf
         state: link
+    - name: install snap
+      apt:
+        name: snapd
+        state: present
+    - name: install cerbot
+      community.general.snap:
+        name: certbot
+        classic: yes
+        state: present
     - name: start nginx
       service:
           name: nginx
-          state: started
+          state: restarted
+          enabled: yes
+    
 
 
   handlers:
