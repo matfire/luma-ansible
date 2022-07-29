@@ -158,7 +158,11 @@
       apt:
         name: snapd
         state: present
-    - name: install cerbot
+    - name: remove other versions of certbot
+      apt:
+        name: certbot
+        state: absent
+    - name: install certbot
       community.general.snap:
         name: certbot
         classic: yes
